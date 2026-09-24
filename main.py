@@ -8,8 +8,9 @@ def mostrar_menu():
     print("3. Mostrar piezas disponibles")
     print("4. Mostrar el precio promedio")
     print("5. Buscar una pieza por identificador")
-    print("6. Eliminar una pieza")
-    print("7. Salir")
+    print("6. Editar una pieza")
+    print("7. Eliminar una pieza")
+    print("8. Salir")
 
 
 def main():
