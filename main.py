@@ -87,6 +87,39 @@ def main():
                 print(f"Error: {e}")
 
         elif opcion == "6":
+            print("\n--- Editar Pieza ---")
+            try:
+                search_id = input("Ingresa el ID de la pieza que deseas editar: ")
+                piece = cat_mod.find_piece_by_id(catalog, search_id)
+                if not piece:
+                    print("No se encontró ninguna pieza con ese identificador.")
+                    continue
+
+                print(f"\nEditando pieza: {piece['name']} (Presiona Enter si no deseas cambiar un valor)")
+
+                nuevo_nombre = input(f"Nuevo nombre [{piece['name']}]: ")
+                nueva_categoria = input(f"Nueva categoría [{piece['category']}]: ")
+                nuevo_precio = input(f"Nuevo precio [{piece['price']}]: ")
+                nuevo_estado = input(f"Nuevo estado [{piece['status']}]: ")
+                nueva_desc = input(f"Nueva descripción [{piece['description']}]: ")
+
+                cat_mod.update_piece(
+                    catalog,
+                    search_id,
+                    name=nuevo_nombre if nuevo_nombre else None,
+                    category=nueva_categoria if nueva_categoria else None,
+                    price=nuevo_precio if nuevo_precio else None,
+                    status=nuevo_estado if nuevo_estado else None,
+                    description=nueva_desc if nueva_desc else None
+                )
+                print("¡Pieza actualizada con éxito!")
+
+            except ValueError as e:
+                print(f"Error de validación: {e}")
+            except Exception as e:
+                print(f"Error: {e}")
+
+        elif opcion == "7":
             print("\n--- Eliminar Pieza ---")
             try:
                 del_id = input("Ingresa el ID de la pieza a eliminar: ")
@@ -98,7 +131,7 @@ def main():
             except Exception as e:
                 print(f"Error: {e}")
 
-        elif opcion == "7":
+        elif opcion == "8":  # <--- Y la opción de salir pasa a ser la 8
             print("¡Hasta luego!")
             break
         else:
