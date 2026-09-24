@@ -103,3 +103,29 @@ def get_average_price(catalog):
         return 0.0
     total = sum(piece["price"] for piece in catalog)
     return total / len(catalog)
+
+def update_piece(catalog, piece_id, name=None, category=None, price=None, status=None, description=None):
+    if not isinstance(catalog, list):
+        raise TypeError("El catálogo debe ser una lista.")
+
+    piece = find_piece_by_id(catalog, piece_id)
+    if piece is None:
+        raise ValueError(f"La pieza con id '{piece_id}' no fue encontrada.")
+
+    # Si el usuario envía un nuevo valor, lo validamos y lo actualizamos
+    if name is not None and name.strip() != "":
+        piece["name"] = validate_not_empty(name, "name")
+
+    if category is not None and category.strip() != "":
+        piece["category"] = validate_not_empty(category, "category")
+
+    if price is not None and str(price).strip() != "":
+        piece["price"] = validate_price(price)
+
+    if status is not None and status.strip() != "":
+        piece["status"] = validate_status(status)
+
+    if description is not None and description.strip() != "":
+        piece["description"] = validate_description(description)
+
+    return piece
